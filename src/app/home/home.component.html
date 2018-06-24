@@ -1,0 +1,141 @@
+<div class="row p-3 mt-4 container-fluid">
+	<div class="col-md-10 mx-auto">
+			<div class="clearfix">
+					<button type="button" (click)="initCreate()" 
+					class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#createModal">
+							<i class="fa fa-plus-square-o" aria-hidden="true"></i> Create A Ticket
+						</button>
+						</div>
+		<div class="border border-secondary mt-2">
+		<h5 class="text-center p-1 my-2"> Tickets Requested </h5>
+<p *ngIf="entries.length == 0; else hasEntries">
+		No entries yet.
+	  </p>
+	  
+	  <ng-template #hasEntries>
+		<table class="table table-striped">
+				<thead>
+						<tr>
+							<th>Subject</th>
+							<th>Start Date</th>
+							<th>Last Updated</th>
+							<th>Unit</th>
+							<th>Progress</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+		  <tr *ngFor="let entry of entries">
+			<td>{{entry.subject}}</td>
+			<td>{{entry.startDate | date:'shortDate'}}</td>
+			<td>{{entry.lastUpdated | date:'shortDate'}}</td>
+			<td>{{entry.unit.name}}</td>
+			<td>{{entry.progress}}</td>
+			<td>
+				<button class="btn btn-sm btn-outline-info" (click)="viewTicket(entry)" data-toggle="modal" data-target="#viewModal">
+					<i class="fa fa-info-circle" aria-hidden="true"></i> View Details
+				</button></td>
+		  </tr>
+		</table>
+		</ng-template>
+	</div>
+		</div>
+		<div class="modal" id="createModal">
+				<div class="modal-dialog modal-lg modal-dialog-centered">
+					<div class="modal-content">
+						<!-- Modal Header -->
+						<div class="modal-header">
+								<h4 class="modal-title">Create Ticket</h4>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+						
+							<!-- Modal body -->
+							<div class="modal-body row">
+									<div class="col-md-10 mx-auto">
+											<div class="form-group">
+												<label for="subject" class="center-block">Subject:
+													<input type="text" id="subject" [(ngModel)]="ticket.subject" class="form-control" required/>
+												</label>
+											</div>
+											<div class="form-group">
+													<label for="details" class="center-block">Details:
+														<textarea id="details" rows="8" [(ngModel)]="ticket.details" class="form-control"></textarea>
+													</label>
+												</div>
+											<div class="form-group">
+														<label for="location" class="center-block">Location:
+															<input type="text" id="location" [(ngModel)]="ticket.location" class="form-control"/>
+														</label>
+											</div>
+											<div class="form-group">
+												<label for="location" class="center-block">Unit:
+													<select id="location" [(ngModel)]="ticket.unit" class="form-control">
+															<option *ngFor="let unit of units" value="{{unit._id}}">
+																{{unit.name}}
+															</option>
+													</select>
+												</label>
+									</div>
+										
+										</div>
+										
+							</div>
+							
+							<!-- Modal footer -->
+							<div class="modal-footer">
+								<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+								<button type="button" class="btn btn-success" (click)="createTicket()" data-dismiss="modal">Save</button>
+							</div>
+				
+							</div>
+							</div>
+							</div>
+							<div class="modal" id="viewModal">
+									<div class="modal-dialog modal-lg modal-dialog-centered">
+										<div class="modal-content">
+											<!-- Modal Header -->
+											<div class="modal-header">
+													<h4 class="modal-title text-center">Ticket Details</h4>
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
+												</div>
+											
+												<!-- Modal body -->
+												<div class="modal-body row">
+													<div class="col-md-12" *ngIf="currentTicket">
+														<div class="col-md-10 mx-auto">
+															<p class="p-2 m-1">Subject : {{currentTicket.subject}}</p>
+															<p class="p-2 m-1">Details : {{currentTicket.details}}</p>
+															<div class="p-3 m-2">Updates : 
+																<table class="table table-hover">
+																	<thead>
+																		<th>Modifier</th>
+																		<th>Update Details</th>
+																		<th>Modified Date</th>
+																	</thead>
+																	<tbody>
+																			<tr *ngFor="let update of currentTicket.updates">
+																				<td>
+																					{{update.modifier.username}}
+																					</td>
+																					<td>{{update.details}}</td>
+																					<td>{{update.modifiedDate}}</td>
+																					
+																				
+																				</tr>
+																	</tbody>
+																</table>
+															</div>
+														</div>
+													</div>
+														
+															
+												</div>
+												
+												<!-- Modal footer -->
+												<div class="modal-footer">
+													<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+												</div>
+									
+												</div>
+												</div>
+												</div>
+		</div>

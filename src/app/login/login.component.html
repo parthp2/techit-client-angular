@@ -1,0 +1,17 @@
+<div class="row mt-5">
+  <div class="col-md-4 card mx-auto bg-light p-md-4">
+    <h3 class="text-center text-info mb-4">Login</h3>
+    <div class="form-group">
+  <label for="username">Username:</label>
+  <input type="text" class="form-control" [(ngModel)]="username" required name="username" id="username"/>
+  </div>
+  <div class="form-group">
+  <label for="password">Password:</label>
+  <input type="password" name="password" [(ngModel)]="password" id="password" class="form-control" required/>
+  </div>
+  <div class="form-error">
+    <p class="text-danger">{{errMsg}}</p>
+  </div>
+  <button type="submit" (click)="login()" class="btn btn-primary">Login</button>
+</div>
+</div>
